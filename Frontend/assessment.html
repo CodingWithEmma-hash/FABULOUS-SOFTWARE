@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Patient Assessment | HealthCare AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="css/assessment.css">
+</head>
+<body class="dashboard-body">
+
+<div class="container app-shell">
+
+    <!-- Sidebar matching dashboard.html -->
+    <aside class="sidebar" id="sidebar">
+        <a class="sidebar-brand" href="dashboard.html">
+            <div class="brand-mark sidebar-mark"><i class="pulse-line"></i><span>+</span></div>
+            <div><strong>GH <span>Ikot Ekpene</span></strong><small>Clinical support system</small></div>
+        </a>
+
+        <div class="nav-caption">WORKSPACE</div>
+        <nav class="main-nav">
+            <a class="nav-link" href="dashboard.html"><span class="nav-icon"><i class="fa-solid fa-house"></i></span> Dashboard</a>
+            <a class="nav-link" href="patient-register.html"><span class="nav-icon"><i class="fa-solid fa-user-plus"></i></span> Patient Registration</a>
+            <a class="nav-link" href="patient.html"><span class="nav-icon"><i class="fa-solid fa-folder-open"></i></span> Patient Records</a>
+            <a class="nav-link active" href="assessment.html"><span class="nav-icon"><i class="fa-brands fa-android"></i></span> AI Assessment</a>
+            <a class="nav-link" href="history.html"><span class="nav-icon"><i class="fa-solid fa-clock-rotate-left"></i></span> Assessment History</a>
+        </nav>
+
+        <div class="nav-caption secondary-caption">MANAGEMENT</div>
+        <nav class="main-nav">
+            <a class="nav-link" href="notifications.html"><span class="nav-icon"><i class="fa-solid fa-bell"></i></span> Notifications <span class="nav-count" id="sidebarUnread">3</span></a>
+            <a class="nav-link" href="reports.html"><span class="nav-icon"><i class="fa-solid fa-chart-column"></i></span> Reports</a>
+            <a class="nav-link" href="users.html"><span class="nav-icon"><i class="fa-solid fa-users"></i></span> User Management</a>
+            <a class="nav-link" href="register.html"><span class="nav-icon"><i class="fa-solid fa-user-gear"></i></span> Staff Registration</a>
+            <a class="nav-link" href="settings.html"><span class="nav-icon"><i class="fa-solid fa-gear"></i></span> Settings</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="help-card"><div class="help-icon"><i class="fa-solid fa-circle-question"></i></div><strong>Need assistance?</strong><p>Contact your system administrator for support.</p></div>
+            <a class="logout-link" href="index.html" id="logoutButton"><span><i class="fa-solid fa-right-from-bracket"></i></span> Sign out</a>
+        </div> 
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation"><i class="fa-solid fa-bars"></i></button>
+                <div class="breadcrumb-topbar" style="font-size: 13px; color: #64748b;"><a href="dashboard.html" style="color:inherit; text-decoration:none;">Workspace</a> <span>/</span> <strong>AI Assessment</strong></div>
+            </div>
+
+            <div class="profile">
+                <div class="avatar">AD</div>
+                <div class="user-meta">
+                    <strong>Administrator</strong>
+                    <small>System Admin</small>
+                </div>
+            </div>
+        </header>
+
+        <section class="content">
+
+
+            <div class="page-heading">
+                <div>
+                    <h1>AI Patient Assessment</h1>
+                    <p>Enter clinical information to support patient assessment and decision-making.</p>
+                </div>
+                <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+                    <a href="history.html" class="btn btn-cancel" style="text-decoration:none; display:inline-flex; align-items:center; gap:6px;"><i class="fa-solid fa-clock-rotate-left"></i> Assessment History</a>
+                    <a href="patient.html" class="btn btn-cancel" style="text-decoration:none; display:inline-flex; align-items:center; gap:6px;"><i class="fa-solid fa-folder-open"></i> Patient Records</a>
+                    <div class="ai-status">
+                        <span class="status-dot"></span>
+                        Decision Support Active
+                    </div>
+                </div>
+            </div>
+
+            <form id="assessmentForm">
+
+                <!-- Patient Information -->
+                <div class="form-card">
+
+                    <div class="section-heading">
+                        <div class="section-icon"><i class="fa-solid fa-user-injured"></i></div>
+                        <div>
+                            <h3>Patient Information</h3>
+                            <p>Select the patient undergoing clinical review.</p>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label for="patientId">PATIENT ID *</label>
+                            <select id="patientId" required>
+                                <option value="">Select Patient</option>
+                                <option value="HSP-2026-001">HSP-2026-001 - Johnathan Doe</option>
+                                <option value="HSP-2026-002">HSP-2026-002 - Mary Okon</option>
+                                <option value="HSP-2026-003">HSP-2026-003 - Emmanuel Bassey</option>
+                                <option value="HSP-2026-004">HSP-2026-004 - Grace Udoh</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="assessmentDate">ASSESSMENT DATE *</label>
+                            <input type="date" id="assessmentDate" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="clinician">ASSESSING HEALTHCARE PROFESSIONAL *</label>
+                            <input type="text" id="clinician"
+                            placeholder="Enter clinician name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ageGroup">PATIENT AGE GROUP *</label>
+                            <select id="ageGroup" required>
+                                <option value="">Select Age Group</option>
+                                <option value="child">Child (Under 18)</option>
+                                <option value="adult">Adult (18–64)</option>
+                                <option value="older">Older Adult (65+)</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Symptoms -->
+                <div class="form-card">
+
+                    <div class="section-heading">
+                        <div class="section-icon"><i class="fa-solid fa-notes-medical"></i></div>
+                        <div>
+                            <h3>Symptoms and Clinical Complaints</h3>
+                            <p>Record the patient's presenting symptoms and observations.</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="symptoms">PRESENTING SYMPTOMS *</label>
+                        <textarea id="symptoms" rows="4"
+                        placeholder="Describe presenting symptoms (e.g. persistent fever, productive cough, chest tightness)..."
+                        required></textarea>
+                    </div>
+
+                    <div class="form-grid symptom-grid">
+
+                        <div class="form-group">
+                            <label for="duration">DURATION OF SYMPTOMS</label>
+                            <input type="text" id="duration"
+                            placeholder="e.g. 3 days">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="severity">REPORTED SYMPTOM SEVERITY</label>
+                            <select id="severity">
+                                <option value="">Select Severity</option>
+                                <option value="mild">Mild</option>
+                                <option value="moderate">Moderate</option>
+                                <option value="severe">Severe</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Vital Signs -->
+                <div class="form-card">
+
+                    <div class="section-heading">
+                        <div class="section-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                        <div>
+                            <h3>Vital Signs</h3>
+                            <p>Enter the patient's measured clinical observations.</p>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label for="temperature">BODY TEMPERATURE (°C)</label>
+                            <input type="number" id="temperature"
+                            placeholder="e.g. 37.0" step="0.1" min="25" max="45">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bloodPressure">BLOOD PRESSURE (mmHg)</label>
+                            <input type="text" id="bloodPressure"
+                            placeholder="e.g. 120/80">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pulse">PULSE RATE (BPM)</label>
+                            <input type="number" id="pulse"
+                            placeholder="e.g. 80" min="1" max="300">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="respiratory">RESPIRATORY RATE (BREATHS/MIN)</label>
+                            <input type="number" id="respiratory"
+                            placeholder="e.g. 18" min="1" max="100">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="oxygen">OXYGEN SATURATION (SpO₂ %)</label>
+                            <input type="number" id="oxygen"
+                            placeholder="e.g. 98" min="1" max="100">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="weight">BODY WEIGHT (KG)</label>
+                            <input type="number" id="weight"
+                            placeholder="e.g. 70" min="0.1" max="500" step="0.1">
+                        </div>
+
+                    </div>
+
+                    <p class="input-note">
+                        Record measurements with standard units. Leave unmeasured indicators blank rather than estimating them.
+                    </p>
+
+                </div>
+
+                <!-- Medical History -->
+                <div class="form-card">
+
+                    <div class="section-heading">
+                        <div class="section-icon"><i class="fa-solid fa-clipboard-list"></i></div>
+                        <div>
+                            <h3>Clinical Observations & History</h3>
+                            <p>Provide additional background information for assessment context.</p>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label for="medicalHistory">RELEVANT MEDICAL HISTORY</label>
+                            <textarea id="medicalHistory" rows="3"
+                            placeholder="Previous conditions, surgeries, chronic illnesses..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="medications">CURRENT MEDICATIONS</label>
+                            <textarea id="medications" rows="3"
+                            placeholder="List ongoing medications or allergies..."></textarea>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="observations">ADDITIONAL CLINICAL OBSERVATIONS</label>
+                            <textarea id="observations" rows="3"
+                            placeholder="Enter any other relevant clinician remarks..."></textarea>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Submit -->
+                <div class="form-actions">
+                    <button type="reset" class="btn btn-cancel">
+                        Clear Form
+                    </button>
+
+                    <button type="submit" class="btn btn-submit">
+                        <i class="fa-brands fa-android"></i> Generate Assessment
+                    </button>
+                </div>
+
+            </form>
+
+            <!-- Assessment Results -->
+            <div class="results-card" id="resultsCard" hidden>
+
+                <div class="results-heading">
+                    <div>
+                        <h2>Assessment Review</h2>
+                        <p>Preliminary observations from entered clinical observations.</p>
+                    </div>
+                    <span class="demo-badge">DECISION SUPPORT INSIGHT</span>
+                </div>
+
+                <div class="risk-panel" id="riskPanel">
+                    <span id="riskLabel">Clinical Review Required</span>
+                    <p id="riskDescription"></p>
+                </div>
+
+                <div class="result-section">
+                    <h3>Clinical Insights & Flags</h3>
+                    <ul id="observationsList"></ul>
+                </div>
+
+                <div class="result-section">
+                    <h3>Recommended Clinical Steps</h3>
+                    <ul id="recommendationsList"></ul>
+                </div>
+
+                <div class="disclaimer">
+                    <strong>Medical Disclaimer:</strong> This decision-support output is generated for clinical reference and does not replace professional diagnostic evaluation. All insights must be confirmed by qualified medical staff.
+                </div>
+
+                <div style="display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap;">
+                    <button type="button" class="btn btn-cancel" id="closeResults">
+                        Close Results
+                    </button>
+                    <a href="history.html" class="btn btn-submit" style="text-decoration:none; display:inline-flex; align-items:center; gap:8px;">
+                        <i class="fa-solid fa-clock-rotate-left"></i> View in Assessment History
+                    </a>
+                </div>
+
+            </div>
+
+        </section>
+
+        <footer>
+            © 2026 General Hospital, Ikot Ekpene <span>| AI-Based Hospital Decision Support System</span>
+        </footer>
+
+    </main>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+<script src="js/nav.js"></script>
+<script src="js/assessment.js"></script>
+<script src="js/auth-guard.js"></script>
+</body>
+</html>

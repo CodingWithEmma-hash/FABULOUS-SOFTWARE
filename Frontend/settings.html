@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Settings | AI Hospital</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="css/settings.css">
+</head>
+<body class="dashboard-body">
+
+<div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+        <a class="sidebar-brand" href="dashboard.html">
+            <div class="brand-mark sidebar-mark"><i class="pulse-line"></i><span>+</span></div>
+            <div><strong>GH <span>Ikot Ekpene</span></strong><small>Clinical support system</small></div>
+        </a>
+
+        <div class="nav-caption">WORKSPACE</div>
+        <nav class="main-nav">
+            <a class="nav-link" href="dashboard.html"><span class="nav-icon"><i class="fa-solid fa-house"></i></span> Dashboard</a>
+            <a class="nav-link" href="patient-register.html"><span class="nav-icon"><i class="fa-solid fa-user-plus"></i></span> Patient Registration</a>
+            <a class="nav-link" href="patient.html"><span class="nav-icon"><i class="fa-solid fa-folder-open"></i></span> Patient Records</a>
+            <a class="nav-link" href="assessment.html"><span class="nav-icon"><i class="fa-brands fa-android"></i></span> AI Assessment</a>
+            <a class="nav-link" href="history.html"><span class="nav-icon"><i class="fa-solid fa-clock-rotate-left"></i></span> Assessment History</a>
+        </nav>
+
+        <div class="nav-caption secondary-caption">MANAGEMENT</div>
+        <nav class="main-nav">
+            <a class="nav-link" href="notifications.html"><span class="nav-icon"><i class="fa-solid fa-bell"></i></span> Notifications <span class="nav-count" id="sidebarUnread">3</span></a>
+            <a class="nav-link" href="reports.html"><span class="nav-icon"><i class="fa-solid fa-chart-column"></i></span> Reports</a>
+            <a class="nav-link" href="users.html"><span class="nav-icon"><i class="fa-solid fa-users"></i></span> User Management</a>
+            <a class="nav-link" href="register.html"><span class="nav-icon"><i class="fa-solid fa-user-gear"></i></span> Staff Registration</a>
+            <a class="nav-link active" href="settings.html"><span class="nav-icon"><i class="fa-solid fa-gear"></i></span> Settings</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="help-card"><div class="help-icon"><i class="fa-solid fa-circle-question"></i></div><strong>Need assistance?</strong><p>Contact your system administrator for support.</p></div>
+            <a class="logout-link" href="index.html" id="logoutButton"><span><i class="fa-solid fa-right-from-bracket"></i></span> Sign out</a>
+        </div>
+    </aside>
+
+    <main class="main-area">
+        <header class="topbar">
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation"><i class="fa-solid fa-bars"></i></button>
+            <div class="breadcrumb"><a href="dashboard.html" style="color:inherit; text-decoration:none;">Workspace</a> <span>/</span> <strong>Settings</strong></div>
+            <div class="topbar-actions">
+                <button class="icon-button notification-button" aria-label="Notifications" id="notificationButton"><i class="fa-solid fa-bell"></i><i></i></button>
+                <div class="user-menu">
+                    <div class="avatar">AD</div>
+                    <div class="user-meta">
+                        <strong>Administrator</strong>
+                        <small>Hospital Staff</small>
+                    </div>
+                    <span class="chevron"><i class="fa-solid fa-chevron-down"></i></span>
+                </div>
+            </div>
+        </header>
+
+        <div class="page-content">
+            <div class="page-heading">
+                <div>
+                    <h1>System Settings</h1>
+                    <p>Manage hospital system preferences and configurations.</p>
+                </div>
+            </div>
+
+            <div class="settings-layout">
+                <div class="settings-menu">
+                    <button class="settings-tab active" data-tab="hospital"><i class="fa-solid fa-hospital"></i> Hospital Information</button>
+                    <button class="settings-tab" data-tab="system"><i class="fa-solid fa-sliders"></i> System Preferences</button>
+                    <button class="settings-tab" data-tab="account"><i class="fa-solid fa-user"></i> Account Settings</button>
+                    <button class="settings-tab" data-tab="security"><i class="fa-solid fa-shield-halved"></i> Security Settings</button>
+                </div>
+
+                <div class="settings-content">
+                    <section class="settings-panel active" id="hospital">
+                        <div class="panel-heading">
+                            <h3>Hospital Information</h3>
+                            <p>Update the hospital's basic information.</p>
+                        </div>
+
+                        <form id="hospitalForm">
+                            <div class="form-grid">
+                                <div class="form-group full-width">
+                                    <label for="hospitalName">HOSPITAL NAME</label>
+                                    <input type="text" id="hospitalName" placeholder="Enter hospital name" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="hospitalEmail">EMAIL ADDRESS</label>
+                                    <input type="email" id="hospitalEmail" placeholder="hospital@example.com">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="hospitalPhone">PHONE NUMBER</label>
+                                    <input type="tel" id="hospitalPhone" placeholder="Enter phone number">
+                                </div>
+
+                                <div class="form-group full-width">
+                                    <label for="hospitalAddress">HOSPITAL ADDRESS</label>
+                                    <textarea id="hospitalAddress" placeholder="Enter hospital address"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="hospitalCity">CITY</label>
+                                    <input type="text" id="hospitalCity" placeholder="Enter city">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="hospitalState">STATE</label>
+                                    <input type="text" id="hospitalState" placeholder="Enter state">
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="save-button">Save Changes</button>
+                            </div>
+                        </form>
+                    </section>
+
+                    <section class="settings-panel" id="system">
+                        <div class="panel-heading">
+                            <h3>System Preferences</h3>
+                            <p>Manage general system display and operational preferences.</p>
+                        </div>
+
+                        <form id="systemForm">
+                            <div class="form-group">
+                                <label for="systemName">SYSTEM NAME</label>
+                                <input type="text" id="systemName" value="AI-Based Hospital Decision Support System">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="dateFormat">DATE FORMAT</label>
+                                <select id="dateFormat">
+                                    <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                                    <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                                    <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="language">SYSTEM LANGUAGE</label>
+                                <select id="language">
+                                    <option value="English">English</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="timezone">TIME ZONE</label>
+                                <select id="timezone">
+                                    <option value="Africa/Lagos">Africa/Lagos (WAT)</option>
+                                    <option value="UTC">UTC</option>
+                                </select>
+                            </div>
+
+                            <div class="preference-option">
+                                <div>
+                                    <strong>Assessment History</strong>
+                                    <p>Keep assessment records in the system's browser storage.</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="historyEnabled" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="save-button">Save Preferences</button>
+                            </div>
+                        </form>
+                    </section>
+
+                    <section class="settings-panel" id="account">
+                        <div class="panel-heading">
+                            <h3>Account Settings</h3>
+                            <p>Update the administrator's account information.</p>
+                        </div>
+
+                        <form id="accountForm">
+                            <div class="form-group">
+                                <label for="adminName">FULL NAME</label>
+                                <input type="text" id="adminName" placeholder="Enter administrator's name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="adminEmail">EMAIL ADDRESS</label>
+                                <input type="email" id="adminEmail" placeholder="Enter email address" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="adminUsername">USERNAME</label>
+                                <input type="text" id="adminUsername" placeholder="Enter username" required>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="save-button">Update Account</button>
+                            </div>
+                        </form>
+                    </section>
+
+                    <section class="settings-panel" id="security">
+                        <div class="panel-heading">
+                            <h3>Security Settings</h3>
+                            <p>Manage administrator password and account protection.</p>
+                        </div>
+
+                        <form id="passwordForm">
+                            <div class="form-group">
+                                <label for="currentPassword">CURRENT PASSWORD</label>
+                                <input type="password" id="currentPassword" placeholder="Enter current password" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="newPassword">NEW PASSWORD</label>
+                                <input type="password" id="newPassword" placeholder="Enter new password" minlength="8" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="confirmPassword">CONFIRM NEW PASSWORD</label>
+                                <input type="password" id="confirmPassword" placeholder="Confirm new password" minlength="8" required>
+                            </div>
+
+                            <div class="security-note">
+                                Use at least 8 characters for your new password. In a deployed system, password changes must be verified and processed securely by the backend.
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="save-button">Change Password</button>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <footer class="app-footer">
+            © 2026 General Hospital, Ikot Ekpene <span>AI-Based Hospital Decision Support System</span>
+        </footer>
+    </main>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="js/nav.js"></script>
+<script src="js/settings.js"></script>
+<script src="js/auth-guard.js"></script>
+</body>
+</html>

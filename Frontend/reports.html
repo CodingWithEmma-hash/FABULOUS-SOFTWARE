@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports & Analytics | AI Hospital</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="css/reports.css">
+</head>
+<body class="dashboard-body">
+
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+<div class="app-shell">
+
+    <aside class="sidebar" id="sidebar">
+        <a class="sidebar-brand" href="dashboard.html">
+            <div class="brand-mark sidebar-mark"><i class="pulse-line"></i><span>+</span></div>
+            <div><strong>GH <span>Ikot Ekpene</span></strong><small>Clinical support system</small></div>
+        </a>
+
+        <div class="nav-caption">WORKSPACE</div>
+        <nav class="main-nav">
+            <a class="nav-link" href="dashboard.html"><span class="nav-icon"><i class="fa-solid fa-house"></i></span> Dashboard</a>
+            <a class="nav-link" href="patient-register.html"><span class="nav-icon"><i class="fa-solid fa-user-plus"></i></span> Patient Registration</a>
+            <a class="nav-link" href="patient.html"><span class="nav-icon"><i class="fa-solid fa-folder-open"></i></span> Patient Records</a>
+            <a class="nav-link" href="assessment.html"><span class="nav-icon"><i class="fa-brands fa-android"></i></span> AI Assessment</a>
+            <a class="nav-link" href="history.html"><span class="nav-icon"><i class="fa-solid fa-clock-rotate-left"></i></span> Assessment History</a>
+        </nav>
+
+        <div class="nav-caption secondary-caption">MANAGEMENT</div>
+        <nav class="main-nav">
+            <a class="nav-link" href="notifications.html"><span class="nav-icon"><i class="fa-solid fa-bell"></i></span> Notifications <span class="nav-count" id="sidebarUnread">3</span></a>
+            <a class="nav-link active" href="reports.html"><span class="nav-icon"><i class="fa-solid fa-chart-column"></i></span> Reports</a>
+            <a class="nav-link" href="users.html"><span class="nav-icon"><i class="fa-solid fa-users"></i></span> User Management</a>
+            <a class="nav-link" href="register.html"><span class="nav-icon"><i class="fa-solid fa-user-gear"></i></span> Staff Registration</a>
+            <a class="nav-link" href="settings.html"><span class="nav-icon"><i class="fa-solid fa-gear"></i></span> Settings</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="help-card"><div class="help-icon"><i class="fa-solid fa-circle-question"></i></div><strong>Need assistance?</strong><p>Contact your system administrator for support.</p></div>
+            <a class="logout-link" href="index.html" id="logoutButton"><span><i class="fa-solid fa-right-from-bracket"></i></span> Sign out</a>
+        </div>
+    </aside>
+
+    <main class="main-area">
+        <header class="topbar">
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation"><i class="fa-solid fa-bars"></i></button>
+            <div class="breadcrumb"><a href="dashboard.html" style="color:inherit; text-decoration:none;">Workspace</a> <span>/</span> <strong>Reports</strong></div>
+            <div class="topbar-actions">
+                <button class="icon-button notification-button" aria-label="Notifications" id="notificationButton"><i class="fa-solid fa-bell"></i><i></i></button>
+                <div class="user-menu">
+                    <div class="avatar">AD</div>
+                    <div class="user-meta"><strong id="userName">Administrator</strong><small>Hospital Staff</small></div>
+                    <span class="chevron"><i class="fa-solid fa-chevron-down"></i></span>
+                </div>
+            </div>
+        </header>
+
+        <div class="page-content">
+
+            <div class="page-heading">
+                <div>
+                    <h2>Hospital Overview</h2>
+                    <p>Review patient records and clinical assessment reports.</p>
+                </div>
+
+                <button class="export-button" id="exportReport">
+                    Export Report
+                </button>
+            </div>
+
+            <!-- Date Filter -->
+            <section class="filter-card">
+                <div class="filter-group">
+                    <label for="startDate">START DATE</label>
+                    <input type="date" id="startDate">
+                </div>
+
+                <div class="filter-group">
+                    <label for="endDate">END DATE</label>
+                    <input type="date" id="endDate">
+                </div>
+
+                <button id="applyFilter" class="filter-button">
+                    Apply Filter
+                </button>
+
+                <button id="clearFilter" class="clear-button">
+                    Clear
+                </button>
+            </section>
+
+            <!-- Statistics -->
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon blue">PT</div>
+                    <div>
+                        <p>Total Patients</p>
+                        <h3 id="totalPatients">0</h3>
+                        <small>Registered patient records</small>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon orange">AS</div>
+                    <div>
+                        <p>Total Assessments</p>
+                        <h3 id="totalAssessments">0</h3>
+                        <small>Recorded assessments</small>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green">CR</div>
+                    <div>
+                        <p>Clinical Reviews</p>
+                        <h3 id="clinicalReviews">0</h3>
+                        <small>Assessments requiring review</small>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon red">PR</div>
+                    <div>
+                        <p>Prompt Reviews</p>
+                        <h3 id="promptReviews">0</h3>
+                        <small>Priority review flags</small>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Charts -->
+            <div class="charts-grid">
+
+                <section class="chart-card">
+                    <div class="card-heading">
+                        <div>
+                            <h3>Patient Demographics</h3>
+                            <p>Distribution of registered patients by gender</p>
+                        </div>
+                    </div>
+
+                    <div class="chart-content">
+                        <canvas id="genderChart"></canvas>
+                    </div>
+
+                    <div class="chart-legend">
+                        <span><i class="legend-dot male"></i> Male</span>
+                        <span><i class="legend-dot female"></i> Female</span>
+                        <span><i class="legend-dot other"></i> Other / Unspecified</span>
+                    </div>
+                </section>
+
+                <section class="chart-card">
+                    <div class="card-heading">
+                        <div>
+                            <h3>Assessment Status</h3>
+                            <p>Distribution of recorded assessment outcomes</p>
+                        </div>
+                    </div>
+
+                    <div class="chart-content">
+                        <canvas id="statusChart"></canvas>
+                    </div>
+
+                    <div class="chart-legend">
+                        <span><i class="legend-dot clinical"></i> Clinical Review</span>
+                        <span><i class="legend-dot prompt"></i> Prompt Review</span>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- Summary Table -->
+            <section class="report-card">
+
+                <div class="card-heading">
+                    <div>
+                        <h3>Assessment Summary</h3>
+                        <p>Overview of assessments within the selected date range</p>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ASSESSMENT ID</th>
+                                <th>PATIENT NAME</th>
+                                <th>ASSESSMENT DATE</th>
+                                <th>CLINICIAN</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="reportTable">
+                            <tr>
+                                <td colspan="5" class="empty-row">
+                                    Loading report records...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="table-footer">
+                    <span id="reportCount">0 assessment records</span>
+                </div>
+
+            </section>
+
+            <div class="report-note">
+                <strong>Report Information</strong>
+                <p>
+                    These reports are generated from records available in the
+                    browser's local storage. They are intended for project
+                    demonstration and should not be treated as validated
+                    clinical or operational statistics.
+                </p>
+            </div>
+
+        </div>
+
+        <footer class="footer">
+            <p>© 2026 AI-Based Hospital Decision Support System. All rights reserved.</p>
+        </footer>
+    </main>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/reports.js"></script>
+<script src="js/auth-guard.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>

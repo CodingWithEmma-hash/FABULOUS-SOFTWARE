@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Registration | HealthCare AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="css/register-patient.css">
+</head>
+<body class="dashboard-body">
+
+<div class="container">
+    <div class="app-shell">
+        <aside class="sidebar" id="sidebar">
+            <a class="sidebar-brand" href="dashboard.html">
+                <div class="brand-mark sidebar-mark"><i class="pulse-line"></i><span>+</span></div>
+                <div><strong>GH <span>Ikot Ekpene</span></strong><small>Clinical support system</small></div>
+            </a>
+
+            <div class="nav-caption">WORKSPACE</div>
+            <nav class="main-nav">
+                <a class="nav-link" href="dashboard.html"><span class="nav-icon"><i class="fa-solid fa-house"></i></span> Dashboard</a>
+                <a class="nav-link active" href="patient-register.html"><span class="nav-icon"><i class="fa-solid fa-user-plus"></i></span> Patient Registration</a>
+                <a class="nav-link" href="patient.html"><span class="nav-icon"><i class="fa-solid fa-folder-open"></i></span> Patient Records</a>
+                <a class="nav-link" href="assessment.html"><span class="nav-icon"><i class="fa-brands fa-android"></i></span> AI Assessment</a>
+                <a class="nav-link" href="history.html"><span class="nav-icon"><i class="fa-solid fa-clock-rotate-left"></i></span> Assessment History</a>
+            </nav>
+
+            <div class="nav-caption secondary-caption">MANAGEMENT</div>
+            <nav class="main-nav">
+                <a class="nav-link" href="notifications.html"><span class="nav-icon"><i class="fa-solid fa-bell"></i></span> Notifications <span class="nav-count" id="sidebarUnread">3</span></a>
+                <a class="nav-link" href="reports.html"><span class="nav-icon"><i class="fa-solid fa-chart-column"></i></span> Reports</a>
+                <a class="nav-link" href="users.html"><span class="nav-icon"><i class="fa-solid fa-users"></i></span> User Management</a>
+                <a class="nav-link" href="register.html"><span class="nav-icon"><i class="fa-solid fa-user-gear"></i></span> Staff Registration</a>
+                <a class="nav-link" href="settings.html"><span class="nav-icon"><i class="fa-solid fa-gear"></i></span> Settings</a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <div class="help-card"><div class="help-icon"><i class="fa-solid fa-circle-question"></i></div><strong>Need assistance?</strong><p>Contact your system administrator for support.</p></div>
+                <a class="logout-link" href="index.html" id="logoutButton"><span><i class="fa-solid fa-right-from-bracket"></i></span> Sign out</a>
+            </div>
+        </aside>
+
+        <main class="main-area">
+            <header class="topbar">
+                <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation"><i class="fa-solid fa-bars"></i></button>
+                <div class="breadcrumb"><a href="dashboard.html" style="color:inherit; text-decoration:none;">Workspace</a> <span>/</span> <strong>Patient Registration</strong></div>
+                <div class="topbar-actions">
+                    <button class="icon-button notification-button" aria-label="Notifications" id="notificationButton"><i class="fa-solid fa-bell"></i><i></i></button>
+                    <div class="user-menu">
+                        <div class="avatar">AD</div>
+                        <div class="user-meta"><strong>Administrator</strong><small>System Admin</small></div>
+                        <span class="chevron"><i class="fa-solid fa-chevron-down"></i></span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-content">
+                <section class="content">
+                    <div class="breadcrumb page-breadcrumb">
+                        <a href="dashboard.html" style="color:inherit; text-decoration:none;">Dashboard</a> / <a href="patient.html" style="color:inherit; text-decoration:none;">Patients</a> / <span>Patient Registration</span>
+                    </div>
+
+                    <div class="page-heading">
+                        <h1>Register New Patient</h1>
+                        <p>Enter the patient's personal, contact and medical information.</p>
+                    </div>
+
+                    <form class="form-card" id="patientForm">
+
+                        <!-- Personal Information -->
+                        <div class="section-heading">
+                            <div class="section-icon"><i class="fa-solid fa-user"></i></div>
+                            <h3>Personal Information</h3>
+                        </div>
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+                                <label for="patientId">PATIENT ID *</label>
+                                <input
+                                    type="text"
+                                    id="patientId"
+                                    placeholder="Automatically generated after registration"
+                                    readonly
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fullName">FULL NAME *</label>
+                                <input type="text" id="fullName"
+                                placeholder="Enter patient's full name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="dob">DATE OF BIRTH *</label>
+                                <input type="date" id="dob" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="gender">GENDER *</label>
+                                <select id="gender" required>
+                                    <option value="">Select Gender</option>
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone">PHONE NUMBER *</label>
+                                <input type="tel" id="phone"
+                                placeholder="Enter phone number" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">EMAIL ADDRESS</label>
+                                <input type="email" id="email"
+                                placeholder="Enter email address">
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="address">RESIDENTIAL ADDRESS *</label>
+                                <textarea id="address"
+                                placeholder="Enter patient's residential address"
+                                rows="3" required></textarea>
+                            </div>
+
+                        </div>
+
+                        <!-- Emergency Contact -->
+                        <div class="section-heading section-spacing">
+                            <div class="section-icon"><i class="fa-solid fa-phone-volume"></i></div>
+                            <h3>Emergency Contact Information</h3>
+                        </div>
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+                                <label for="emergencyName">CONTACT PERSON NAME *</label>
+                                <input type="text" id="emergencyName"
+                                placeholder="Enter contact person's name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="relationship">RELATIONSHIP *</label>
+                                <select id="relationship" required>
+                                    <option value="">Select Relationship</option>
+                                    <option>Father</option>
+                                    <option>Mother</option>
+                                    <option>Spouse</option>
+                                    <option>Brother</option>
+                                    <option>Sister</option>
+                                    <option>Guardian</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="emergencyPhone">CONTACT PHONE NUMBER *</label>
+                                <input type="tel" id="emergencyPhone"
+                                placeholder="Enter emergency contact number" required>
+                            </div>
+
+                        </div>
+
+                        <!-- Medical Information -->
+                        <div class="section-heading section-spacing">
+                            <div class="section-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                            <h3>Medical Information</h3>
+                        </div>
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+                                <label for="bloodGroup">BLOOD GROUP</label>
+                                <select id="bloodGroup">
+                                    <option value="">Select Blood Group</option>
+                                    <option>A+</option>
+                                    <option>A-</option>
+                                    <option>B+</option>
+                                    <option>B-</option>
+                                    <option>AB+</option>
+                                    <option>AB-</option>
+                                    <option>O+</option>
+                                    <option>O-</option>
+                                    <option>Unknown</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="genotype">GENOTYPE</label>
+                                <select id="genotype">
+                                    <option value="">Select Genotype</option>
+                                    <option>AA</option>
+                                    <option>AS</option>
+                                    <option>SS</option>
+                                    <option>AC</option>
+                                    <option>SC</option>
+                                    <option>Unknown</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="allergies">KNOWN ALLERGIES</label>
+                                <textarea id="allergies"
+                                rows="3"
+                                placeholder="Enter known allergies or state None"></textarea>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="medicalHistory">PREVIOUS MEDICAL HISTORY</label>
+                                <textarea id="medicalHistory"
+                                rows="4"
+                                placeholder="Enter relevant previous medical history"></textarea>
+                            </div>
+
+                        </div>
+
+                        <div class="notice">
+                            <strong>Privacy Notice:</strong>
+                            Patient information must be handled confidentially
+                            and accessed only by authorized hospital personnel.
+                        </div>
+
+                        <div class="form-footer">
+                            <a href="patient.html" class="btn btn-cancel" style="text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
+                                <i class="fa-solid fa-folder-open"></i> View Patient Records
+                            </a>
+
+                            <button type="reset" class="btn btn-cancel">
+                                Clear Form
+                            </button>
+
+                            <button type="submit" class="btn btn-submit">
+                                Register Patient
+                            </button>
+                        </div>
+
+                    </form>
+                </section>
+
+            </div>
+
+            <footer>
+                © 2026 HealthCare AI | Hospital Decision Support System
+            </footer>
+
+        </main>
+    </div>
+</div>
+   
+<div class="toast" id="toast" role="status"></div>
+<script src="js/nav.js"></script>
+<script src="js/patient-register.js"></script>
+<script src="js/auth-guard.js"></script>
+</body>
+</html>

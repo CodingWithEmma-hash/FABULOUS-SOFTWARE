@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management | AI Hospital</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/users.css">
+</head>
+<body class="dashboard-body">
+
+<div class="app-shell">
+
+    <aside class="sidebar" id="sidebar">
+        <a class="sidebar-brand" href="dashboard.html">
+            <div class="brand-mark sidebar-mark"><i class="pulse-line"></i><span>+</span></div>
+            <div><strong>GH <span>Ikot Ekpene</span></strong><small>Clinical support system</small></div>
+        </a>
+
+        <div class="nav-caption">WORKSPACE</div>
+        <nav class="main-nav">
+            <a class="nav-link" href="dashboard.html"><span class="nav-icon"><i class="fa-solid fa-house"></i></span> Dashboard</a>
+            <a class="nav-link" href="patient-register.html"><span class="nav-icon"><i class="fa-solid fa-user-plus"></i></span> Patient Registration</a>
+            <a class="nav-link" href="patient.html"><span class="nav-icon"><i class="fa-solid fa-folder-open"></i></span> Patient Records</a>
+            <a class="nav-link" href="assessment.html"><span class="nav-icon"><i class="fa-brands fa-android"></i></span> AI Assessment</a>
+            <a class="nav-link" href="history.html"><span class="nav-icon"><i class="fa-solid fa-clock-rotate-left"></i></span> Assessment History</a>
+        </nav>
+
+        <div class="nav-caption secondary-caption">MANAGEMENT</div>
+        <nav class="main-nav">
+            <a class="nav-link" href="notifications.html"><span class="nav-icon"><i class="fa-solid fa-bell"></i></span> Notifications <span class="nav-count" id="sidebarUnread">3</span></a>
+            <a class="nav-link" href="reports.html"><span class="nav-icon"><i class="fa-solid fa-chart-column"></i></span> Reports</a>
+            <a class="nav-link active" href="users.html"><span class="nav-icon"><i class="fa-solid fa-users"></i></span> User Management</a>
+            <a class="nav-link" href="register.html"><span class="nav-icon"><i class="fa-solid fa-user-gear"></i></span> Staff Registration</a>
+            <a class="nav-link" href="settings.html"><span class="nav-icon"><i class="fa-solid fa-gear"></i></span> Settings</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="help-card"><div class="help-icon"><i class="fa-solid fa-circle-question"></i></div><strong>Need assistance?</strong><p>Contact your system administrator for support.</p></div>
+            <a class="logout-link" href="index.html" id="logoutButton"><span><i class="fa-solid fa-right-from-bracket"></i></span> Sign out</a>
+        </div>
+    </aside>
+
+    <main class="main-area">
+
+        <header class="topbar">
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation"><i class="fa-solid fa-bars"></i></button>
+            <div class="breadcrumb"><a href="dashboard.html" style="color:inherit; text-decoration:none;">Workspace</a> <span>/</span> <strong>User Management</strong></div>
+            <div class="topbar-actions">
+                <button class="icon-button notification-button" aria-label="Notifications" id="notificationButton"><i class="fa-solid fa-bell"></i><i></i></button>
+                <div class="user-menu">
+                    <div class="avatar"><i class="fa-solid fa-user-shield"></i></div>
+                    <div class="user-meta"><strong id="userName">Administrator</strong><small>Hospital Staff</small></div>
+                    <span class="chevron"><i class="fa-solid fa-chevron-down"></i></span>
+                </div>
+            </div>
+        </header>
+
+        <div class="page-content">
+
+            <div class="page-heading">
+                <div>
+                    <h2>Staff Accounts</h2>
+                    <p>View, register and manage users of the hospital system.</p>
+                </div>
+
+                <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+                    <a href="register.html" class="primary-button" style="text-decoration:none; display:inline-flex; align-items:center; gap:6px; background:#0284c7;">
+                        <i class="fa-solid fa-user-plus"></i> Staff Registration Form
+                    </a>
+                    <button class="primary-button" id="openAddModal">
+                        + Quick Add User
+                    </button>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon blue">TU</div>
+                    <div>
+                        <p>Total Users</p>
+                        <h3 id="totalUsers">0</h3>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green">AU</div>
+                    <div>
+                        <p>Active Users</p>
+                        <h3 id="activeUsers">0</h3>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon orange">AD</div>
+                    <div>
+                        <p>Administrators</p>
+                        <h3 id="adminUsers">0</h3>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon purple">PH</div>
+                    <div>
+                        <p>Pharmacists</p>
+                        <h3 id="pharmacistUsers">0</h3>
+                    </div>
+                </div>
+
+            </div>
+
+            <section class="users-card">
+
+                <div class="card-heading">
+                    <div>
+                        <h3>Registered Users</h3>
+                        <p>Manage registered hospital personnel.</p>
+                    </div>
+                </div>
+
+                <div class="filter-area">
+                    <input type="search" id="searchInput" placeholder="Search by name, username or staff ID...">
+
+                    <select id="roleFilter">
+                        <option value="all">All Roles</option>
+                        <option value="Administrator">Administrator</option>
+                        <option value="Doctor">Doctor</option>
+                        <option value="Pharmacist">Pharmacist</option>
+                        <option value="Nurse">Nurse</option>
+                        <option value="Staff">Staff</option>
+                    </select>
+
+                    <select id="statusFilter">
+                        <option value="all">All Statuses</option>
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                    </select>
+
+                    <button id="resetFilters" class="reset-button">Reset</button>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>STAFF ID</th>
+                                <th>FULL NAME</th>
+                                <th>USERNAME</th>
+                                <th>EMAIL ADDRESS</th>
+                                <th>USER ROLE</th>
+                                <th>STATUS</th>
+                                <th>ACTION</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="usersTable"></tbody>
+                    </table>
+                </div>
+
+                <div class="table-footer">
+                    <span id="recordCount">Showing 0 users</span>
+                </div>
+
+            </section>
+
+        </div>
+
+        <footer class="footer">
+            <p>© 2026 AI-Based Hospital Decision Support System. All rights reserved.</p>
+        </footer>
+
+    </main>
+</div>
+
+<div class="modal-overlay" id="userModal">
+    <div class="modal">
+        <div class="modal-header">
+            <div>
+                <h2 id="modalTitle">Register New User</h2>
+                <p>Enter the staff member's account information.</p>
+            </div>
+            <button class="close-button" id="closeModal">&times;</button>
+        </div>
+
+        <form id="userForm">
+            <div class="modal-body">
+                <input type="hidden" id="editUserId">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="staffId">STAFF ID</label>
+                        <input type="text" id="staffId" placeholder="Enter staff ID" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fullName">FULL NAME</label>
+                        <input type="text" id="fullName" placeholder="Enter full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="username">USERNAME</label>
+                        <input type="text" id="username" placeholder="Enter username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">EMAIL ADDRESS</label>
+                        <input type="email" id="email" placeholder="Enter email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">PHONE NUMBER</label>
+                        <input type="tel" id="phone" placeholder="Enter phone number">
+                    </div>
+                    <div class="form-group">
+                        <label for="userRole">ROLE</label>
+                        <select id="userRole" required>
+                            <option value="Administrator">Administrator</option>
+                            <option value="Doctor">Doctor</option>
+                            <option value="Nurse">Nurse</option>
+                            <option value="Pharmacist">Pharmacist</option>
+                            <option value="Staff">Staff</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="status">STATUS</label>
+                        <select id="status" required>
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="passwordGroup">
+                        <label for="password">PASSWORD</label>
+                        <input type="password" id="password" placeholder="Temporary password (min 8 chars)">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="cancel-button" id="cancelModal">Cancel</button>
+                <button type="submit" class="save-button" id="submitButton">Save User</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+<script src="js/nav.js"></script>
+<script src="js/users.js"></script>
+<script src="js/auth-guard.js"></script>
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Records | HealthCare AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="css/patient.css">
+</head>
+<body class="dashboard-body">
+
+<div class="container app-shell">
+
+    <!-- Sidebar matching dashboard.html -->
+    <aside class="sidebar" id="sidebar">
+        <a class="sidebar-brand" href="dashboard.html">
+            <div class="brand-mark sidebar-mark"><i class="pulse-line"></i><span>+</span></div>
+            <div><strong>GH <span>Ikot Ekpene</span></strong><small>Clinical support system</small></div>
+        </a>
+
+        <div class="nav-caption">WORKSPACE</div>
+        <nav class="main-nav">
+            <a class="nav-link" href="dashboard.html"><span class="nav-icon"><i class="fa-solid fa-house"></i></span> Dashboard</a>
+            <a class="nav-link" href="patient-register.html"><span class="nav-icon"><i class="fa-solid fa-user-plus"></i></span> Patient Registration</a>
+            <a class="nav-link active" href="patient.html"><span class="nav-icon"><i class="fa-solid fa-folder-open"></i></span> Patient Records</a>
+            <a class="nav-link" href="assessment.html"><span class="nav-icon"><i class="fa-brands fa-android"></i></span> AI Assessment</a>
+            <a class="nav-link" href="history.html"><span class="nav-icon"><i class="fa-solid fa-clock-rotate-left"></i></span> Assessment History</a>
+        </nav>
+
+        <div class="nav-caption secondary-caption">MANAGEMENT</div>
+        <nav class="main-nav">
+            <a class="nav-link" href="notifications.html"><span class="nav-icon"><i class="fa-solid fa-bell"></i></span> Notifications <span class="nav-count" id="sidebarUnread">3</span></a>
+            <a class="nav-link" href="reports.html"><span class="nav-icon"><i class="fa-solid fa-chart-column"></i></span> Reports</a>
+            <a class="nav-link" href="users.html"><span class="nav-icon"><i class="fa-solid fa-users"></i></span> User Management</a>
+            <a class="nav-link" href="register.html"><span class="nav-icon"><i class="fa-solid fa-user-gear"></i></span> Staff Registration</a>
+            <a class="nav-link" href="settings.html"><span class="nav-icon"><i class="fa-solid fa-gear"></i></span> Settings</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="help-card"><div class="help-icon"><i class="fa-solid fa-circle-question"></i></div><strong>Need assistance?</strong><p>Contact your system administrator for support.</p></div>
+            <a class="logout-link" href="index.html" id="logoutButton"><span><i class="fa-solid fa-right-from-bracket"></i></span> Sign out</a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation"><i class="fa-solid fa-bars"></i></button>
+                <div class="breadcrumb-topbar"><a href="dashboard.html" style="color:inherit; text-decoration:none;">Workspace</a> <span>/</span> <strong>Patient Records</strong></div>
+            </div>
+
+            <div class="profile">
+                <div class="avatar">AD</div>
+                <div class="user-meta">
+                    <strong>Administrator</strong>
+                    <small>System Admin</small>
+                </div>
+            </div>
+        </header>
+
+        <section class="content">
+
+            <div class="breadcrumb">
+                <a href="dashboard.html" style="color:inherit; text-decoration:none;">Dashboard</a> / <span>Patient Records</span>
+            </div>
+
+            <div class="page-heading">
+                <div>
+                    <h1>Patient Records</h1>
+                    <p>View and manage registered patient information.</p>
+                </div>
+
+                <a href="patient-register.html" class="add-btn">
+                    <i class="fa-solid fa-user-plus"></i> Register New Patient
+                </a>
+            </div>
+
+            <!-- Statistics -->
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon blue"><i class="fa-solid fa-users"></i></div>
+                    <div>
+                        <p>Total Patients</p>
+                        <h2 id="totalPatients">4</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon orange"><i class="fa-solid fa-mars"></i></div>
+                    <div>
+                        <p>Male Patients</p>
+                        <h2 id="malePatients">2</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon purple"><i class="fa-solid fa-venus"></i></div>
+                    <div>
+                        <p>Female Patients</p>
+                        <h2 id="femalePatients">2</h2>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Records Table -->
+            <div class="records-card">
+
+                <div class="records-header">
+                    <div>
+                        <h3>All Patient Records</h3>
+                        <p>Manage hospital patient information</p>
+                    </div>
+                    <span class="record-count" id="recordCount">
+                        4 Records
+                    </span>
+                </div>
+
+                <!-- Search and Filter -->
+                <div class="filters">
+
+                    <div class="search-box">
+                        <span><i class="fa-solid fa-magnifying-glass"></i></span>
+                        <input type="search" id="searchInput"
+                        placeholder="Search by patient name, ID or phone...">
+                    </div>
+
+                    <select id="genderFilter">
+                        <option value="">All Genders</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+
+                    <button class="reset-btn" id="resetFilter">
+                        Reset
+                    </button>
+
+                </div>
+
+                <!-- Table -->
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>PATIENT ID</th>
+                                <th>PATIENT NAME</th>
+                                <th>GENDER</th>
+                                <th>PHONE NUMBER</th>
+                                <th>DATE OF BIRTH</th>
+                                <th>ACTIONS</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="patientTableBody">
+                            <!-- JavaScript inserts records here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="empty-state" id="emptyState" hidden>
+                    <div class="empty-icon"><i class="fa-solid fa-folder-open"></i></div>
+                    <h3>No Patient Records Found</h3>
+                    <p>Try another search or register a new patient.</p>
+                </div>
+
+                <div class="table-footer">
+                    <span id="showingText">Showing 4 patient records</span>
+                </div>
+
+            </div>
+
+        </section>
+
+        <footer>
+            © 2026 General Hospital, Ikot Ekpene <span>| AI-Based Hospital Decision Support System</span>
+        </footer>
+
+    </main>
+
+</div>
+
+<!-- Patient Details Modal -->
+<div class="modal" id="detailsModal">
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <div>
+                <h3>Patient Details</h3>
+                <p>Complete patient information</p>
+            </div>
+            <button class="close-btn" data-close="detailsModal">&times;</button>
+        </div>
+
+        <div class="details-grid" id="patientDetails"></div>
+
+        <div class="modal-footer">
+            <button class="btn btn-cancel" data-close="detailsModal">
+                Close
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<!-- Edit Patient Modal -->
+<div class="modal" id="editModal">
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <div>
+                <h3>Edit Patient Record</h3>
+                <p>Update patient information</p>
+            </div>
+            <button class="close-btn" data-close="editModal">&times;</button>
+        </div>
+
+        <form id="editForm">
+
+            <input type="hidden" id="editId">
+
+            <div class="edit-grid">
+
+                <div class="form-group">
+                    <label for="editName">FULL NAME</label>
+                    <input type="text" id="editName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="editGender">GENDER</label>
+                    <select id="editGender" required>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="editPhone">PHONE NUMBER</label>
+                    <input type="tel" id="editPhone" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="editDob">DATE OF BIRTH</label>
+                    <input type="date" id="editDob" required>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="editEmail">EMAIL ADDRESS</label>
+                    <input type="email" id="editEmail">
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="editAddress">RESIDENTIAL ADDRESS</label>
+                    <textarea id="editAddress" rows="3"></textarea>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancel"
+                data-close="editModal">Cancel</button>
+
+                <button type="submit" class="btn btn-save">
+                    Save Changes
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+<script src="js/nav.js"></script>
+<script src="js/records.js"></script>
+<script src="js/auth-guard.js"></script>
+</body>
+</html>

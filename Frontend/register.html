@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Registration | HealthCare AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="css/register.css">
+</head>
+<body class="dashboard-body">
+
+<div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+        <a class="sidebar-brand" href="dashboard.html">
+            <div class="brand-mark sidebar-mark"><i class="pulse-line"></i><span>+</span></div>
+            <div><strong>GH <span>Ikot Ekpene</span></strong><small>Clinical support system</small></div>
+        </a>
+
+        <div class="nav-caption">WORKSPACE</div>
+        <nav class="main-nav">
+            <a class="nav-link" href="dashboard.html"><span class="nav-icon"><i class="fa-solid fa-house"></i></span> Dashboard</a>
+            <a class="nav-link" href="patient-register.html"><span class="nav-icon"><i class="fa-solid fa-user-plus"></i></span> Patient Registration</a>
+            <a class="nav-link" href="patient.html"><span class="nav-icon"><i class="fa-solid fa-folder-open"></i></span> Patient Records</a>
+            <a class="nav-link" href="assessment.html"><span class="nav-icon"><i class="fa-brands fa-android"></i></span> AI Assessment</a>
+            <a class="nav-link" href="history.html"><span class="nav-icon"><i class="fa-solid fa-clock-rotate-left"></i></span> Assessment History</a>
+        </nav>
+
+        <div class="nav-caption secondary-caption">MANAGEMENT</div>
+        <nav class="main-nav">
+            <a class="nav-link" href="notifications.html"><span class="nav-icon"><i class="fa-solid fa-bell"></i></span> Notifications <span class="nav-count" id="sidebarUnread">3</span></a>
+            <a class="nav-link" href="reports.html"><span class="nav-icon"><i class="fa-solid fa-chart-column"></i></span> Reports</a>
+            <a class="nav-link" href="users.html"><span class="nav-icon"><i class="fa-solid fa-users"></i></span> User Management</a>
+            <a class="nav-link active" href="register.html"><span class="nav-icon"><i class="fa-solid fa-user-gear"></i></span> Staff Registration</a>
+            <a class="nav-link" href="settings.html"><span class="nav-icon"><i class="fa-solid fa-gear"></i></span> Settings</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="help-card"><div class="help-icon"><i class="fa-solid fa-circle-question"></i></div><strong>Need assistance?</strong><p>Contact your system administrator for support.</p></div>
+            <a class="logout-link" href="index.html" id="logoutButton"><span><i class="fa-solid fa-right-from-bracket"></i></span> Sign out</a>
+        </div>
+    </aside>
+
+    <main class="main-area">
+        <header class="topbar">
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation"><i class="fa-solid fa-bars"></i></button>
+            <div class="breadcrumb"><a href="dashboard.html" style="color:inherit; text-decoration:none;">Workspace</a> <span>/</span> <strong>Staff Registration</strong></div>
+            <div class="topbar-actions">
+                <button class="icon-button notification-button" aria-label="Notifications" id="notificationButton"><i class="fa-solid fa-bell"></i><i></i></button>
+                <div class="user-menu">
+                    <div class="avatar"><i class="fa-solid fa-user-shield"></i></div>
+                    <div class="user-meta"><strong>Administrator</strong><small>System Admin</small></div>
+                    <span class="chevron"><i class="fa-solid fa-chevron-down"></i></span>
+                </div>
+            </div>
+        </header>
+
+        <div class="page-content">
+            <section class="content">
+                <form class="form-card" id="staffForm">
+                    <div class="section-heading">
+                        <div class="section-icon"><i class="fa-solid fa-user"></i></div>
+                        <h3>Personal Information</h3>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="fullName">FULL NAME *</label>
+                            <input type="text" id="fullName" placeholder="Enter staff full name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="staffId">STAFF ID *</label>
+                            <input type="text" id="staffId" placeholder="e.g. HSP001" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">EMAIL ADDRESS *</label>
+                            <input type="email" id="email" placeholder="staff@hospital.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">PHONE NUMBER *</label>
+                            <input type="tel" id="phone" placeholder="Enter phone number" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="department">DEPARTMENT *</label>
+                            <select id="department" required>
+                                <option value="">Select Department</option>
+                                <option>General Medicine</option>
+                                <option>Emergency Department</option>
+                                <option>Laboratory</option>
+                                <option>Pharmacy</option>
+                                <option>Nursing</option>
+                                <option>Administration</option>
+                                <option>Radiology</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="role">STAFF ROLE *</label>
+                            <select id="role" required>
+                                <option value="">Select Staff Role</option>
+                                <option>Administrator</option>
+                                <option>Doctor</option>
+                                <option>Nurse</option>
+                                <option>Pharmacist</option>
+                                <option>Laboratory Scientist</option>
+                                <option>Receptionist</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="section-heading account-heading">
+                        <div class="section-icon"><i class="fa-solid fa-lock"></i></div>
+                        <h3>Account Information</h3>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="username">USERNAME *</label>
+                            <input type="text" id="username" placeholder="Create a username" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">PASSWORD *</label>
+                            <div class="password-field">
+                                <input type="password" id="password" placeholder="Create a password" minlength="8" required>
+                                <button type="button" class="toggle-password" data-target="password" aria-label="Show password"><i class="fa-solid fa-eye"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword">CONFIRM PASSWORD *</label>
+                            <div class="password-field">
+                                <input type="password" id="confirmPassword" placeholder="Confirm your password" minlength="8" required>
+                                <button type="button" class="toggle-password" data-target="confirmPassword" aria-label="Show password"><i class="fa-solid fa-eye"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="notice">
+                        <strong>Security Notice:</strong>
+                        Staff login credentials should remain confidential.
+                        Only authorized administrators should create staff accounts.
+                    </div>
+
+                    <div class="form-footer">
+                        <a href="index.html" class="btn btn-cancel" style="text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
+                            <i class="fa-solid fa-right-to-bracket"></i> Sign In Portal
+                        </a>
+                        <button type="reset" class="btn btn-cancel">Clear Form</button>
+                        <button type="submit" class="btn btn-submit">Register Staff</button>
+                    </div>
+
+                    <p style="margin-top: 18px; font-size: 13px; color: var(--muted); text-align: center;">
+                        Already registered as staff? <a href="index.html" style="color: var(--blue); font-weight: 600; text-decoration: none;">Sign in here →</a>
+                    </p>
+                </form>
+            </section>
+        </div>
+
+        <footer>
+            © 2026 HealthCare AI | Hospital Decision Support System
+        </footer>
+    </main>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+<script src="js/nav.js"></script>
+<script src="js/register.js"></script>
+<script src="js/auth-guard.js"></script>
+</body>
+</html>

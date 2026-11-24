@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In | AI-Based Hospital Decision Support System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwUEQp1B1E5P5Y2pM+u7xB4pD0dR5n5D2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="login-body">
+  <main class="login-shell">
+    <section class="login-brand-panel">
+      <div class="brand-lockup">
+        <div class="brand-mark"><i class="pulse-line"></i><span>+</span></div>
+        <div>
+          <p class="brand-overline">GENERAL HOSPITAL</p>
+          <p class="brand-location">Ikot Ekpene</p>
+        </div>
+      </div>
+      <div class="brand-message">
+        <span class="eyebrow">SMARTER CLINICAL SUPPORT</span>
+        <h1>Better decisions.<br><em>Better healthcare.</em></h1>
+        <p>A decision-support workspace that helps authorised hospital personnel organise patient information and review AI-assisted clinical insights.</p>
+      </div>
+      <div class="brand-illustration" aria-hidden="true">
+        <div class="illustration-cross">+</div>
+        <div class="illustration-ring ring-one"></div>
+        <div class="illustration-ring ring-two"></div>
+        <div class="illustration-card"><span class="mini-pulse">⌁</span><span>Patient-centred care</span></div>
+        <div class="illustration-dot dot-one"></div><div class="illustration-dot dot-two"></div>
+      </div>
+      <div class="brand-footer"><span class="status-dot"></span> Supporting informed clinical review</div>
+    </section>
+
+    <section class="login-form-panel">
+      <div class="mobile-brand">
+        <div class="brand-mark small"><i class="pulse-line"></i><span>+</span></div>
+        <div><strong>General Hospital</strong><small>Ikot Ekpene</small></div>
+      </div>
+      <div class="login-form-wrap">
+        <div class="form-heading">
+          <span class="eyebrow blue">STAFF PORTAL</span>
+          <h2>Welcome back</h2>
+          <p>Sign in with your staff credentials to continue.</p>
+        </div>
+        <form id="loginForm" novalidate>
+          <label for="staffId">Username or Staff ID</label>
+          <div class="input-wrap"><span class="input-icon"><i class="fa-solid fa-user"></i></span><input id="staffId" name="staffId" type="text" placeholder="Enter your username or staff ID" autocomplete="username" required></div>
+          <label for="password">Password</label>
+          <div class="input-wrap"><span class="input-icon"><i class="fa-solid fa-lock"></i></span><input id="password" name="password" type="password" placeholder="Enter your password" autocomplete="current-password" required><button class="password-toggle" type="button" id="togglePassword" aria-label="Show password"><i class="fa-solid fa-eye"></i></button></div>
+          <div class="form-options"><label class="check-label"><input type="checkbox" id="remember"> <span>Remember me</span></label><a href="#" id="forgotLink">Forgot password?</a></div>
+          <p class="form-message" id="loginMessage" role="alert"></p>
+          <button class="btn btn-primary login-button" type="submit">Sign in <span>→</span></button>
+          <div style="text-align: center; margin-top: 14px; font-size: 13px; color: #64748b;">
+            New hospital personnel? <a href="register.html" style="color: #1769d2; font-weight: 600; text-decoration: none;">Register staff account →</a>
+          </div>
+        </form>
+        <div class="secure-note"><span>♢</span> Your session is intended for authorised hospital staff only.</div>
+      </div>
+      <footer class="login-copyright">© <span id="year"></span> General Hospital, Ikot Ekpene. All rights reserved.</footer>
+    </section>
+  </main>
+  <script src="js/auth.js"></script>
+</body>
+</html>
+ 

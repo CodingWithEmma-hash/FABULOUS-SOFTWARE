@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | AI-Based Hospital Decision Support System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dashboard-body">
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="sidebar-brand" href="dashboard.html">
+        <div class="brand-mark sidebar-mark"><i class="pulse-line"></i><span>+</span></div>
+        <div><strong>GH <span>Ikot Ekpene</span></strong><small>Clinical support system</small></div>
+      </a>
+      <div class="nav-caption">WORKSPACE</div>
+      <nav class="main-nav">
+        <a class="nav-link active" href="dashboard.html"><span class="nav-icon"><i class="fa-solid fa-house"></i></span> Dashboard</a>
+        <a class="nav-link" href="patient-register.html"><span class="nav-icon"><i class="fa-solid fa-user-plus"></i></span> Patient Registration</a>
+        <a class="nav-link" href="patient.html"><span class="nav-icon"><i class="fa-solid fa-folder-open"></i></span> Patient Records</a>
+        <a class="nav-link" href="assessment.html"><span class="nav-icon"><i class="fa-brands fa-android"></i></span> AI Assessment</a>
+        <a class="nav-link" href="history.html"><span class="nav-icon"><i class="fa-solid fa-clock-rotate-left"></i></span> Assessment History</a>
+      </nav>
+      <div class="nav-caption secondary-caption">MANAGEMENT</div>
+      <nav class="main-nav">
+        <a class="nav-link" href="notifications.html"><span class="nav-icon"><i class="fa-solid fa-bell"></i></span> Notifications <span class="nav-count" id="sidebarUnread">0</span></a>
+        <a class="nav-link" href="reports.html"><span class="nav-icon"><i class="fa-solid fa-chart-column"></i></span> Reports</a>
+        <a class="nav-link" href="users.html"><span class="nav-icon"><i class="fa-solid fa-users"></i></span> User Management</a>
+        <a class="nav-link" href="register.html"><span class="nav-icon"><i class="fa-solid fa-user-gear"></i></span> Staff Registration</a>
+        <a class="nav-link" href="settings.html"><span class="nav-icon"><i class="fa-solid fa-gear"></i></span> Settings</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="help-card"><div class="help-icon"><i class="fa-solid fa-circle-question"></i></div><strong>Need assistance?</strong><p>Contact your system administrator for support.</p></div>
+        <a class="logout-link" href="index.html" id="logoutButton"><span><i class="fa-solid fa-right-from-bracket"></i></span> Sign out</a>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation"><i class="fa-solid fa-bars"></i></button>
+        <div class="breadcrumb">Workspace <span>/</span> <strong>Dashboard</strong></div>
+        <div class="topbar-actions">
+          <button class="icon-button notification-button" aria-label="Notifications" id="notificationButton"><i class="fa-solid fa-bell"></i><i></i></button>
+          <div class="user-menu">
+            <div class="avatar">JO</div>
+            <div class="user-meta"><strong id="userName">Hospital Staff</strong><small>Authorised staff</small></div>
+            <span class="chevron"><i class="fa-solid fa-chevron-down"></i></span>
+          </div>
+        </div>
+      </header>
+
+      <div class="page-content">
+        <section class="welcome-row">
+          <div><span class="eyebrow blue">MONDAY, NOVEMBER 2, 2026</span><h1>Good day, <span id="welcomeName">Hospital Staff</span></h1><p>Here is an overview of your hospital workspace.</p></div>
+          <div class="date-chip"><span><i class="fa-regular fa-calendar-days"></i></span><span id="todayDate">Today</span></div>
+        </section>
+
+        <section class="stat-grid" aria-label="Hospital overview">
+          <article class="stat-card" onclick="window.location.href='patient.html'" style="cursor: pointer;" title="View Patient Records">
+            <div class="stat-top"><span class="stat-label">Total patients</span><span class="stat-icon blue-bg"><i class="fa-solid fa-user-injured"></i></span></div>
+            <div class="stat-number" id="totalPatients">0</div><div class="stat-foot"><span class="trend-up">↗ 8.2%</span> <span>from last month</span></div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-top"><span class="stat-label">Total assessments</span><span class="stat-icon teal-bg"><i class="fa-solid fa-bed"></i></span></div>
+            <div class="stat-number" id="totalAssessments">0</div><div class="stat-foot"><span class="trend-up">↗ 3.1%</span> <span>from last week</span></div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-top"><span class="stat-label">Active staff</span><span class="stat-icon orange-bg"><i class="fa-regular fa-calendar-check"></i></span></div>
+            <div class="stat-number" id="activeStaff">0</div><div class="stat-foot"><span class="neutral-note">6 pending</span> <span>appointments</span></div>
+          </article>
+          <article class="stat-card" onclick="window.location.href='history.html?status=Clinical+Review+Required'" style="cursor: pointer;" title="View Clinical Alerts">
+            <div class="stat-top"><span class="stat-label">New alerts</span><span class="stat-icon violet-bg"><i class="fa-solid fa-triangle-exclamation"></i></span></div>
+            <div class="stat-number" id="clinicalAlerts">0</div><div class="stat-foot"><span class="alert-note">Needs review</span> <span>clinical alerts</span></div>
+          </article>
+        </section>
+
+        <section class="content-grid">
+          <article class="panel overview-panel">
+            <div class="panel-heading"><div><h2>Patient activity</h2><p>Illustrative weekly overview</p></div><button class="select-chip">This week <i class="fa-solid fa-chevron-down"></i></button></div>
+            <div class="chart-legend"><span><i class="legend-blue"></i> Patient visits</span><span><i class="legend-orange"></i> Admissions</span></div>
+            <div class="chart-wrap">
+              <div class="y-labels"><span>100</span><span>75</span><span>50</span><span>25</span><span>0</span></div>
+              <div class="chart-area">
+                <div class="chart-grid"><i></i><i></i><i></i><i></i><i></i></div>
+                <svg viewBox="0 0 640 210" preserveAspectRatio="none" role="img" aria-label="Illustrative line chart showing weekly patient visits and admissions">
+                  <polyline class="line-blue" points="0,135 105,105 210,118 315,58 420,78 525,35 640,65"/>
+                  <polyline class="line-orange" points="0,175 105,158 210,165 315,133 420,148 525,120 640,140"/>
+                  <g class="blue-points"><circle cx="0" cy="135" r="4"/><circle cx="105" cy="105" r="4"/><circle cx="210" cy="118" r="4"/><circle cx="315" cy="58" r="4"/><circle cx="420" cy="78" r="4"/><circle cx="525" cy="35" r="4"/><circle cx="640" cy="65" r="4"/></g>
+                  <g class="orange-points"><circle cx="0" cy="175" r="4"/><circle cx="105" cy="158" r="4"/><circle cx="210" cy="165" r="4"/><circle cx="315" cy="133" r="4"/><circle cx="420" cy="148" r="4"/><circle cx="525" cy="120" r="4"/><circle cx="640" cy="140" r="4"/></g>
+                </svg>
+                <div class="x-labels"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+              </div>
+            </div>
+            <p class="demo-note">Sample dashboard figures for interface demonstration; connect to live records during backend integration.</p>
+          </article>
+
+          <article class="panel quick-panel">
+            <div class="panel-heading"><div><h2>Quick actions</h2><p>Common tasks</p></div></div>
+            <button class="quick-action" onclick="window.location.href='patient-register.html'"><span class="quick-icon blue-bg"><i class="fa-solid fa-user-plus"></i></span><span><strong>Register patient</strong><small>Add a new patient record</small></span><b><i class="fa-solid fa-arrow-right"></i></b></button>
+            <button class="quick-action" onclick="window.location.href='assessment.html'"><span class="quick-icon teal-bg"><i class="fa-solid fa-notes-medical"></i></span><span><strong>Enter clinical data</strong><small>Record symptoms and observations</small></span><b><i class="fa-solid fa-arrow-right"></i></b></button>
+            <button class="quick-action" onclick="window.location.href='assessment.html'"><span class="quick-icon orange-bg"><i class="fa-brands fa-android"></i></span><span><strong>Run AI assessment</strong><small>Review decision-support insights</small></span><b><i class="fa-solid fa-arrow-right"></i></b></button>
+          </article>
+        </section>
+
+        <section class="lower-grid">
+          <article class="panel activity-panel">
+            <div class="panel-heading"><div><h2>Recent activities</h2><p>Latest actions in the system</p></div><a href="history.html" class="text-link">View all <i class="fa-solid fa-arrow-right"></i></a></div>
+            <div class="activity-list">
+              <div class="activity-item" onclick="window.location.href='patient.html'" style="cursor: pointer;" title="View Patient Records"><span class="activity-symbol patient-symbol"><i class="fa-solid fa-user-plus"></i></span><div><strong>New patient registered</strong><small>Patient record created</small></div><time>Just now</time></div>
+              <div class="activity-item" onclick="window.location.href='assessment.html'" style="cursor: pointer;" title="View Clinical Assessment"><span class="activity-symbol clinical-symbol"><i class="fa-solid fa-notes-medical"></i></span><div><strong>Clinical information updated</strong><small>Patient observations saved</small></div><time>18 min ago</time></div>
+              <div class="activity-item" onclick="window.location.href='history.html'" style="cursor: pointer;" title="View Assessment History"><span class="activity-symbol ai-symbol"><i class="fa-brands fa-android"></i></span><div><strong>AI assessment reviewed</strong><small>Decision-support result viewed</small></div><time>42 min ago</time></div>
+            </div>
+          </article>
+          <article class="panel alerts-panel">
+            <div class="panel-heading"><div><h2>Important alerts</h2><p>Items requiring attention</p></div><span class="alert-badge">2 new</span></div>
+            <div class="alert-item" onclick="window.location.href='history.html?status=Clinical+Review+Required'" style="cursor: pointer;" title="View in Assessment History"><span class="alert-indicator urgent"><i class="fa-solid fa-exclamation"></i></span><div><strong>Clinical review required</strong><small>A patient record has been flagged for staff review.</small></div></div>
+            <div class="alert-item" onclick="window.location.href='patient.html'" style="cursor: pointer;" title="View Patient Records"><span class="alert-indicator info"><i class="fa-solid fa-info"></i></span><div><strong>Pending record updates</strong><small>Some patient information may need completion.</small></div></div>
+            <p class="disclaimer">AI-generated suggestions are for decision support only and must be reviewed by qualified healthcare professionals.</p>
+          </article>
+        </section>
+        <footer class="app-footer">© 2026 General Hospital, Ikot Ekpene <span>AI-Based Hospital Decision Support System</span></footer>
+      </div>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="js/nav.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/dashboard-data.js"></script>
+  <script src="js/auth-guard.js"></script>
+</body>
+</html>
