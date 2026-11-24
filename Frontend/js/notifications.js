@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const API_URL = "http://localhost:5001/api";
+    const API_URL = (/^https?:$/i.test(window.location.protocol) && ["", "80", "443", "8080"].includes(window.location.port) && /\/Frontend\//i.test(window.location.pathname))
+        ? `${window.location.origin}${window.location.pathname.replace(/\/Frontend\/.*$/i, "/Backend/api")}`
+        : "http://localhost:5001/api";
 
     const notificationList = document.getElementById("notificationList");
     const emptyState = document.getElementById("emptyState");

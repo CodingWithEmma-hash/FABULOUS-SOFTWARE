@@ -1,0 +1,16 @@
+RewriteEngine On
+
+# Preserve Authorization header for PHP under Apache
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+# Block direct HTTP access to dotfiles (such as .env) and internal directories
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+RewriteRule ^(config|controllers|helpers|middleware|routes|services)(/|$) - [F,L]
+
+# Route all API requests through index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [QSA,L]

@@ -1,12 +1,17 @@
-const { pool } = require("./db");
+<?php
 
-async function initializeDatabase() {
-    let connection;
+declare(strict_types=1);
+
+require_once __DIR__ . '/db.php';
+
+/**
+ * Create all required tables and default hospital settings row if missing.
+ */
+function initializeDatabase(PDO $pdo, bool $verbose = false): void
+{
     try {
-        connection = await pool.getConnection();
-
         // 1. Users table
-        await connection.query(`
+        $pdo->exec("
             CREATE TABLE IF NOT EXISTS users (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 staff_id VARCHAR(50) UNIQUE NOT NULL,
@@ -20,10 +25,10 @@ async function initializeDatabase() {
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-        `);
+        ");
 
         // 2. Patients table
-        await connection.query(`
+        $pdo->exec("
             CREATE TABLE IF NOT EXISTS patients (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 patient_id VARCHAR(50) UNIQUE NOT NULL,
@@ -45,10 +50,10 @@ async function initializeDatabase() {
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 INDEX idx_patient_id (patient_id)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-        `);
+        ");
 
         // 3. Assessments table
-        await connection.query(`
+        $pdo->exec("
             CREATE TABLE IF NOT EXISTS assessments (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 assessment_code VARCHAR(50) UNIQUE NOT NULL,
@@ -56,35 +61,46 @@ async function initializeDatabase() {
                 patient_code VARCHAR(50),
                 patient_name VARCHAR(150),
                 clinician_id INT,
-                clinician VARCHAR(150) NOT NULL,
+                clinician VARCHAR(150) DEFAULT '',
                 age_group VARCHAR(50) NOT NULL,
                 symptoms TEXT NOT NULL,
+                symptom_duration VARCHAR(50),
                 duration VARCHAR(50),
                 severity VARCHAR(50) DEFAULT 'Moderate',
                 temperature DECIMAL(4, 1),
                 blood_pressure VARCHAR(30),
+                pulse_rate INT,
                 pulse INT,
                 respiratory_rate INT,
+                oxygen_saturation INT,
                 oxygen INT,
                 weight DECIMAL(5, 1),
                 medical_history TEXT,
                 medications TEXT,
                 observations TEXT,
+                ai_summary TEXT,
                 recommendations TEXT,
+                warning_signs TEXT,
+                ai_review_priority VARCHAR(50),
                 status VARCHAR(80) NOT NULL DEFAULT 'Clinical Review Required',
+                review_notes TEXT,
+                reviewed_by INT,
+                reviewed_at TIMESTAMP NULL,
                 assessment_date DATE NOT NULL,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 INDEX idx_assessment_code (assessment_code),
                 INDEX idx_patient_id (patient_id),
                 INDEX idx_status (status)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-        `);
+        ");
 
         // 4. Notifications table
-        await connection.query(`
+        $pdo->exec("
             CREATE TABLE IF NOT EXISTS notifications (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 recipient_id INT,
+                assessment_id INT NULL,
+                patient_id INT NULL,
                 title VARCHAR(200) NOT NULL,
                 message TEXT NOT NULL,
                 type VARCHAR(50) DEFAULT 'system',
@@ -94,23 +110,24 @@ async function initializeDatabase() {
                 INDEX idx_recipient (recipient_id),
                 INDEX idx_is_read (is_read)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-        `);
+        ");
 
         // 5. Activity logs table
-        await connection.query(`
+        $pdo->exec("
             CREATE TABLE IF NOT EXISTS activity_logs (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 user_id INT,
                 action VARCHAR(100) NOT NULL,
                 description TEXT NOT NULL,
+                ip_address VARCHAR(45) NULL,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 INDEX idx_user_id (user_id),
                 INDEX idx_created_at (created_at)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-        `);
+        ");
 
         // 6. Hospital Settings table
-        await connection.query(`
+        $pdo->exec("
             CREATE TABLE IF NOT EXISTS hospital_settings (
                 id INT PRIMARY KEY,
                 hospital_name VARCHAR(200) DEFAULT 'General Hospital, Ikot Ekpene',
@@ -126,20 +143,43 @@ async function initializeDatabase() {
                 history_enabled TINYINT(1) DEFAULT 1,
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-        `);
+        ");
 
         // Insert default row in hospital_settings if missing
-        await connection.query(`
+        $pdo->exec("
             INSERT IGNORE INTO hospital_settings (id, hospital_name, hospital_email, hospital_phone, hospital_address, hospital_city, hospital_state)
             VALUES (1, 'General Hospital, Ikot Ekpene', 'info@ghikotekpene.gov.ng', '+234 803 000 1234', '14 Hospital Road', 'Ikot Ekpene', 'Akwa Ibom');
-        `);
+        ");
 
-        console.log("Database tables initialized successfully.");
-    } catch (error) {
-        console.error("Database initialization notice:", error.message);
-    } finally {
-        if (connection) connection.release();
+        if ($verbose) {
+            echo "Database tables initialized successfully.\n";
+        }
+    } catch (Throwable $e) {
+        if ($verbose) {
+            fwrite(STDERR, 'Database initialization notice: ' . $e->getMessage() . "\n");
+        } else {
+            error_log('Database initialization notice: ' . $e->getMessage());
+        }
     }
 }
 
-module.exports = { initializeDatabase };
+/**
+ * Run initializeDatabase once per DB name using a temp marker file to avoid per-request DDL overhead.
+ */
+function ensureDatabaseInitialized(PDO $pdo): void
+{
+    $dbName = envValue('DB_NAME', 'hospital_dss');
+    $marker = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'hospital_dss_init_' . md5((string) $dbName) . '.flag';
+
+    if (is_file($marker)) {
+        return;
+    }
+
+    initializeDatabase($pdo, false);
+    @file_put_contents($marker, (string) time());
+}
+
+if (PHP_SAPI === 'cli' && realpath($_SERVER['SCRIPT_FILENAME'] ?? '') === __FILE__) {
+    testDatabaseConnection();
+    initializeDatabase(getDbConnection(), true);
+}

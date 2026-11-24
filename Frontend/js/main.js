@@ -172,7 +172,10 @@ if (logoutButton) {
 
         try {
             if (token) {
-                await fetch("http://localhost:5001/api/auth/logout", {
+                const logoutApiUrl = (/^https?:$/i.test(window.location.protocol) && ["", "80", "443", "8080"].includes(window.location.port) && /\/Frontend\//i.test(window.location.pathname))
+                    ? `${window.location.origin}${window.location.pathname.replace(/\/Frontend\/.*$/i, "/Backend/api")}`
+                    : "http://localhost:5001/api";
+                await fetch(`${logoutApiUrl}/auth/logout`, {
                     method: "POST",
                     headers: {
                         "Authorization": `Bearer ${token}`,

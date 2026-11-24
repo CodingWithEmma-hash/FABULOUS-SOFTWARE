@@ -1,6 +1,8 @@
 // Common Navigation & Shell Behaviors across all pages
 document.addEventListener("DOMContentLoaded", () => {
-  const API_BASE = "http://localhost:5001/api";
+  const API_BASE = (/^https?:$/i.test(window.location.protocol) && ["", "80", "443", "8080"].includes(window.location.port) && /\/Frontend\//i.test(window.location.pathname))
+    ? `${window.location.origin}${window.location.pathname.replace(/\/Frontend\/.*$/i, "/Backend/api")}`
+    : "http://localhost:5001/api";
   const token = sessionStorage.getItem("hospitalToken");
 
   // 1. Sidebar Toggle for Mobile & Backdrop
