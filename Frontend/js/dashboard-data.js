@@ -1,7 +1,6 @@
-
 const DASHBOARD_API_URL = (/^https?:$/i.test(window.location.protocol) && ["", "80", "443", "8080"].includes(window.location.port) && /\/Frontend\//i.test(window.location.pathname))
     ? `${window.location.origin}${window.location.pathname.replace(/\/Frontend\/.*$/i, "/Backend/api")}`
-    : "http://localhost:5001/api";
+    : "http://localhost/PROJECT%20SOFTWARE/FABULOUS%20SOFTWARE/Backend/api";
 
 async function loadDashboardData() {
     const token = sessionStorage.getItem("hospitalToken");
@@ -37,6 +36,9 @@ async function loadDashboardData() {
 
         // Update clinical alerts
         updateClinicalAlerts(data.clinicalAlerts);
+
+        // Update the Patient activity chart from database records
+        updatePatientActivity(data.patientActivity);
 
     } catch (error) {
         console.error("Dashboard loading error:", error);
@@ -193,6 +195,52 @@ function updateClinicalAlerts(alerts) {
 
         heading.insertAdjacentElement("afterend", item);
     });
+}
+
+
+// ==========================================
+// UPDATE PATIENT ACTIVITY CHART
+// ==========================================
+
+function updatePatientActivity(activity) {
+    if (!Array.isArray(activity) || activity.length === 0) return;
+
+    const chartWidth = 640;
+    const chartHeight = 210;
+    const topPadding = 10;
+    const bottomPadding = 10;
+    const maximum = Math.max(4, ...activity.flatMap(day => [
+        Number(day.visits || 0),
+        Number(day.admissions || 0)
+    ]));
+    const roundedMaximum = Math.ceil(maximum / 4) * 4;
+
+    const toPoints = key => activity.map((day, index) => {
+        const x = activity.length === 1 ? 0 : (index * chartWidth) / (activity.length - 1);
+        const value = Number(day[key] || 0);
+        const y = chartHeight - bottomPadding - (value / roundedMaximum) * (chartHeight - topPadding - bottomPadding);
+        return `${x.toFixed(1)},${y.toFixed(1)}`;
+    }).join(" ");
+
+    const visitsLine = document.getElementById("patientVisitsLine");
+    const admissionsLine = document.getElementById("patientAdmissionsLine");
+    if (visitsLine) visitsLine.setAttribute("points", toPoints("visits"));
+    if (admissionsLine) admissionsLine.setAttribute("points", toPoints("admissions"));
+
+    const xLabels = document.querySelector(".x-labels");
+    if (xLabels) {
+        xLabels.innerHTML = activity.map(day => `<span>${escapeDashboardText(day.label)}</span>`).join("");
+    }
+
+    const yLabels = document.getElementById("patientActivityYLabels");
+    if (yLabels) {
+        yLabels.innerHTML = [4, 3, 2, 1, 0]
+            .map(step => `<span>${(roundedMaximum * step / 4).toFixed(0)}</span>`)
+            .join("");
+    }
+
+    const subtitle = document.getElementById("patientActivitySubtitle");
+    if (subtitle) subtitle.textContent = "Live data for the current week";
 }
 
 

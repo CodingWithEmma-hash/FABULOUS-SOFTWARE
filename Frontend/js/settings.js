@@ -1,6 +1,6 @@
 const API_URL = (/^https?:$/i.test(window.location.protocol) && ["", "80", "443", "8080"].includes(window.location.port) && /\/Frontend\//i.test(window.location.pathname))
     ? `${window.location.origin}${window.location.pathname.replace(/\/Frontend\/.*$/i, "/Backend/api")}`
-    : "http://localhost:5001/api";
+    : "http://localhost/PROJECT%20SOFTWARE/FABULOUS%20SOFTWARE/Backend/api";
 
 const hospitalForm = document.getElementById("hospitalForm");
 const systemForm = document.getElementById("systemForm");
@@ -220,76 +220,4 @@ if (accountForm) {
             if (data.user) {
                 sessionStorage.setItem("hospitalUser", JSON.stringify(data.user));
                 const userNameEl = document.getElementById("userName");
-                if (userNameEl) userNameEl.textContent = data.user.fullName || data.user.full_name;
-            }
-
-            showToast("Account profile updated successfully.");
-
-        } catch (error) {
-            console.error("Update profile error:", error);
-            showToast(error.message, "error");
-        } finally {
-            submitBtn.disabled = false;
-        }
-    });
-}
-
-// 4. Change password
-if (passwordForm) {
-    passwordForm.addEventListener("submit", async event => {
-        event.preventDefault();
-
-        const token = sessionStorage.getItem("hospitalToken");
-        if (!token) return;
-
-        const currentPassword = document.getElementById("currentPassword").value;
-        const newPassword = document.getElementById("newPassword").value;
-        const confirmPassword = document.getElementById("confirmPassword").value;
-
-        if (!currentPassword || !newPassword || !confirmPassword) {
-            showToast("Please complete all password fields.", "error");
-            return;
-        }
-
-        if (newPassword.length < 8) {
-            showToast("New password must contain at least 8 characters.", "error");
-            return;
-        }
-
-        if (newPassword !== confirmPassword) {
-            showToast("The new passwords do not match.", "error");
-            return;
-        }
-
-        const submitBtn = passwordForm.querySelector('button[type="submit"]');
-        submitBtn.disabled = true;
-
-        try {
-            const response = await fetch(`${API_URL}/auth/change-password`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                },
-                body: JSON.stringify({ currentPassword, newPassword })
-            });
-
-            const data = await response.json();
-            if (!response.ok || !data.success) {
-                throw new Error(data.message || "Failed to change password.");
-            }
-
-            showToast("Password changed successfully!", "success");
-            passwordForm.reset();
-
-        } catch (error) {
-            console.error("Change password error:", error);
-            showToast(error.message, "error");
-        } finally {
-            submitBtn.disabled = false;
-        }
-    });
-}
-
-// Initialize
-loadSettings();
+                if

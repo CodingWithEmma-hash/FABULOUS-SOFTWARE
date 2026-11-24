@@ -80,15 +80,15 @@
 
         <section class="content-grid">
           <article class="panel overview-panel">
-            <div class="panel-heading"><div><h2>Patient activity</h2><p>Illustrative weekly overview</p></div><button class="select-chip">This week <i class="fa-solid fa-chevron-down"></i></button></div>
+            <div class="panel-heading"><div><h2>Patient activity</h2><p id="patientActivitySubtitle">Current week overview</p></div><button class="select-chip">This week <i class="fa-solid fa-chevron-down"></i></button></div>
             <div class="chart-legend"><span><i class="legend-blue"></i> Patient visits</span><span><i class="legend-orange"></i> Admissions</span></div>
             <div class="chart-wrap">
-              <div class="y-labels"><span>100</span><span>75</span><span>50</span><span>25</span><span>0</span></div>
+              <div class="y-labels" id="patientActivityYLabels"><span>100</span><span>75</span><span>50</span><span>25</span><span>0</span></div>
               <div class="chart-area">
                 <div class="chart-grid"><i></i><i></i><i></i><i></i><i></i></div>
-                <svg viewBox="0 0 640 210" preserveAspectRatio="none" role="img" aria-label="Illustrative line chart showing weekly patient visits and admissions">
-                  <polyline class="line-blue" points="0,135 105,105 210,118 315,58 420,78 525,35 640,65"/>
-                  <polyline class="line-orange" points="0,175 105,158 210,165 315,133 420,148 525,120 640,140"/>
+                <svg id="patientActivityChart" viewBox="0 0 640 210" preserveAspectRatio="none" role="img" aria-label="Weekly patient visits and admissions from database records">
+                  <polyline id="patientVisitsLine" class="line-blue" points="0,135 105,105 210,118 315,58 420,78 525,35 640,65"/>
+                  <polyline id="patientAdmissionsLine" class="line-orange" points="0,175 105,158 210,165 315,133 420,148 525,120 640,140"/>
                   <g class="blue-points"><circle cx="0" cy="135" r="4"/><circle cx="105" cy="105" r="4"/><circle cx="210" cy="118" r="4"/><circle cx="315" cy="58" r="4"/><circle cx="420" cy="78" r="4"/><circle cx="525" cy="35" r="4"/><circle cx="640" cy="65" r="4"/></g>
                   <g class="orange-points"><circle cx="0" cy="175" r="4"/><circle cx="105" cy="158" r="4"/><circle cx="210" cy="165" r="4"/><circle cx="315" cy="133" r="4"/><circle cx="420" cy="148" r="4"/><circle cx="525" cy="120" r="4"/><circle cx="640" cy="140" r="4"/></g>
                 </svg>

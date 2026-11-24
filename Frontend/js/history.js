@@ -1,6 +1,6 @@
-const API_URL = (/^https?:$/i.test(window.location.protocol) && ["", "80", "443", "8080"].includes(window.location.port) && /\/Frontend\//i.test(window.location.pathname))
+const API_URL = (/^https?:$/i.test(window.location.protocol) && !["5500", "5501", "5173", "5174", "4200"].includes(window.location.port) && /\/Frontend\//i.test(window.location.pathname))
     ? `${window.location.origin}${window.location.pathname.replace(/\/Frontend\/.*$/i, "/Backend/api")}`
-    : "http://localhost:5001/api";
+    : "http://localhost/PROJECT%20SOFTWARE/FABULOUS%20SOFTWARE/Backend/api";
 
 const assessmentTable = document.getElementById("assessmentTable");
 const searchInput = document.getElementById("searchInput");
@@ -174,8 +174,12 @@ async function loadAssessments() {
         // Check URL search parameters (e.g. from dashboard click)
         const params = new URLSearchParams(window.location.search);
         const statusParam = params.get("status");
+        const searchParam = params.get("search");
         if (statusParam && statusFilter) {
             statusFilter.value = statusParam;
+        }
+        if (searchParam && searchInput) {
+            searchInput.value = decodeURIComponent(searchParam.replace(/\+/g, " "));
         }
 
         displayAssessments();

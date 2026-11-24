@@ -1,7 +1,6 @@
-
-const API_URL = (/^https?:$/i.test(window.location.protocol) && ["", "80", "443", "8080"].includes(window.location.port) && /\/Frontend\//i.test(window.location.pathname))
+const API_URL = (/^https?:$/i.test(window.location.protocol) && !["5500", "5501", "5173", "5174", "4200"].includes(window.location.port) && /\/Frontend\//i.test(window.location.pathname))
     ? `${window.location.origin}${window.location.pathname.replace(/\/Frontend\/.*$/i, "/Backend/api")}`
-    : "http://localhost:5001/api";
+    : "http://localhost/PROJECT%20SOFTWARE/FABULOUS%20SOFTWARE/Backend/api";
 
 const loginForm = document.getElementById("loginForm");
 const staffIdInput = document.getElementById("staffId");
@@ -54,16 +53,38 @@ loginForm.addEventListener("submit", async (event) => {
     showMessage("");
 
     try {
-        const response = await fetch(`${API_URL}/auth/login`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                identifier: identifier,
-                password: password
-            })
-        });
+        let activeApiUrl = API_URL;
+        let response;
+        try {
+            response = await fetch(`${activeApiUrl}/auth/login`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    identifier: identifier,
+                    password: password
+                })
+            });
+        } catch (networkErr) {
+            if (networkErr instanceof TypeError && activeApiUrl !== XAMPP_FALLBACK_API_URL) {
+                activeApiUrl = XAMPP_FALLBACK_API_URL;
+                response = await fetch(`${activeApiUrl}/auth/login`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        identifier: identifier,
+                        password: password
+                    })
+                });
+            } else {
+                throw networkErr;
+            }
+        }
+
+        sessionStorage.setItem("hospitalApiUrl", activeApiUrl);
 
         const data = await response.json();
 
@@ -100,7 +121,7 @@ loginForm.addEventListener("submit", async (event) => {
 
         if (error instanceof TypeError) {
             showMessage(
-                "Unable to connect to the server. Make sure your backend is running."
+                `Cannot reach the backend at ${API_URL}. Start/redeploy the PHP backend and check its database connection.`
             );
         } else {
             showMessage(error.message);

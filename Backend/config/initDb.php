@@ -168,8 +168,10 @@ function initializeDatabase(PDO $pdo, bool $verbose = false): void
  */
 function ensureDatabaseInitialized(PDO $pdo): void
 {
+    $host = envValue('DB_HOST', 'localhost');
+    $port = envValue('DB_PORT', '3306');
     $dbName = envValue('DB_NAME', 'hospital_dss');
-    $marker = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'hospital_dss_init_' . md5((string) $dbName) . '.flag';
+    $marker = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'hospital_dss_init_' . md5("{$host}|{$port}|{$dbName}") . '.flag';
 
     if (is_file($marker)) {
         return;

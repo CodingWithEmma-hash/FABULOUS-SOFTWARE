@@ -72,6 +72,49 @@ function getDashboard(PDO $pdo, array $authUser): void
             LIMIT 5
         ")->fetchAll();
 
+        // Build the Patient activity chart from live table records.
+        $weekStart = (new DateTimeImmutable('monday this week'))->setTime(0, 0, 0);
+        $weekEnd = $weekStart->modify('+7 days');
+
+        $visitStmt = $pdo->prepare("
+            SELECT assessment_date AS activity_date, COUNT(*) AS total
+            FROM assessments
+            WHERE assessment_date >= ? AND assessment_date < ?
+            GROUP BY assessment_date
+        ");
+        $visitStmt->execute([$weekStart->format('Y-m-d'), $weekEnd->format('Y-m-d')]);
+        $visitsByDate = [];
+        foreach ($visitStmt->fetchAll() as $row) {
+            $visitsByDate[$row['activity_date']] = (int) $row['total'];
+        }
+
+        $admissionStmt = $pdo->prepare("
+            SELECT DATE(created_at) AS activity_date, COUNT(*) AS total
+            FROM patients
+            WHERE created_at >= ? AND created_at < ?
+            GROUP BY DATE(created_at)
+        ");
+        $admissionStmt->execute([
+            $weekStart->format('Y-m-d 00:00:00'),
+            $weekEnd->format('Y-m-d 00:00:00'),
+        ]);
+        $admissionsByDate = [];
+        foreach ($admissionStmt->fetchAll() as $row) {
+            $admissionsByDate[$row['activity_date']] = (int) $row['total'];
+        }
+
+        $patientActivity = [];
+        $labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+        for ($day = 0; $day < 7; $day++) {
+            $date = $weekStart->modify("+{$day} days");
+            $dateKey = $date->format('Y-m-d');
+            $patientActivity[] = [
+                'label' => $labels[$day],
+                'visits' => $visitsByDate[$dateKey] ?? 0,
+                'admissions' => $admissionsByDate[$dateKey] ?? 0,
+            ];
+        }
+
         jsonResponse([
             'success' => true,
             'message' => 'Dashboard data retrieved successfully.',
@@ -85,6 +128,7 @@ function getDashboard(PDO $pdo, array $authUser): void
             'recentActivities' => $recentActivities,
             'recentPatients' => $recentPatients,
             'clinicalAlerts' => $clinicalAlerts,
+            'patientActivity' => $patientActivity,
         ], 200);
     } catch (Throwable $e) {
         error_log('Dashboard data error: ' . $e->getMessage());
